@@ -61,5 +61,18 @@ int	main(void)
 	};
 
 	ft_print_matrix(matrix);
+
+//	cicla su tutte le POSIZIONI della matrice 4x4 da 0 a 15
+
+// per ogni posizione cicla tutti i NUMERI possibili da 1 a 4
+
+// verifica che nella riga o nella colonna non sia già presente il numero
+//		la verifica viene fatta su tutte le posizioni "inferiori" in riga o colonna
+// se è presente procede col prossimo NUMERO
+//		se ha terminato il ciclo sui numeri TORNA INDIETRO di UNA POSIZIONE cancellando l'ultimo numero impostato
+// se non è presente procede con la prossima POSIZIONE
+
+// quando finisce le posizioni arrivando a 15 la matrice è terminata
+
 	return (0);
 }
