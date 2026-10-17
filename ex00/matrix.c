@@ -23,6 +23,34 @@ void	ft_print_matrix(int m[4][4])
 	}
 }
 
+// conversione da coordinate a punto posizione
+// p va da 0 a dim * dim
+int	pos_from_coord(int x, int y, int dim)
+{
+	int	p;
+
+	p = x * dim + y;
+	return (p);
+}
+
+// conversione da punto posizione a coordinata x
+int x_from_pos(int p, int dim)
+{
+	int	x;
+	
+	x = p / dim;
+	return (x);
+}
+
+// conversione da punto posizione a coordinata y
+int y_from_pos(int p, int dim)
+{
+	int	y;
+	
+	y = p % dim; 
+	return (y);
+}
+
 int	main(void)
 {
 	int matrix[4][4] = {
