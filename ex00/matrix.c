@@ -51,28 +51,104 @@ int y_from_pos(int p, int dim)
 	return (y);
 }
 
+int	ft_check_avail_num(int n, int m[4][4], int p)
+{
+	int	i;
+	int	j;
+	int k;
+
+	i = x_from_pos(p, 4);
+	j = y_from_pos(p, 4);
+	k = 0;
+	while (k < i)
+	{
+		if (m[k][j] == n)
+			return (0);
+		k++;
+	}
+	k = 0;
+	while (k < j)
+	{
+		if (m[i][k] == n)
+			return (0);
+		k++;
+	}
+	return (1);
+}
+
 int	main(void)
 {
+	int	i;
+	int	j;
+	int	p;
+	int num;
+	int fl_num_ok;
+//	int num_trace[16] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 	int matrix[4][4] = {
-		{1, 2, 3, 4},
-		{4, 1, 2, 3},
-		{3, 4, 1, 2},
-		{2, 3, 4, 1}
+		{0, 0, 0, 0},
+		{0, 0, 0, 0},
+		{0, 0, 0, 0},
+		{0, 0, 0, 0}
 	};
 
 	ft_print_matrix(matrix);
+	write(1, "---------\n", 10);
+
+/*// Inizializza la matrice a 0
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			matrix[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+*/
 
 //	cicla su tutte le POSIZIONI della matrice 4x4 da 0 a 15
-
+	p = 0;
+	while (p < 16)
+	{
+		i = x_from_pos(p, 4);
+		j = y_from_pos(p, 4);
 // per ogni posizione cicla tutti i NUMERI possibili da 1 a 4
-
+		num = matrix[x_from_pos(p, 4)][y_from_pos(p, 4)] + 1;
+		fl_num_ok = 0;
+		while (num <= 4)
+		{
 // verifica che nella riga o nella colonna non sia già presente il numero
 //		la verifica viene fatta su tutte le posizioni "inferiori" in riga o colonna
-// se è presente procede col prossimo NUMERO
-//		se ha terminato il ciclo sui numeri TORNA INDIETRO di UNA POSIZIONE cancellando l'ultimo numero impostato
-// se non è presente procede con la prossima POSIZIONE
-
-// quando finisce le posizioni arrivando a 15 la matrice è terminata
+			if (ft_check_avail_num(num, matrix, p))
+				{
+					matrix[i][j] = num;
+					num = 5;
+					fl_num_ok = 1;
+				}
+			else
+				{
+					fl_num_ok = 0;
+					num++;
+				}
+		}
+//		se ha terminato il ciclo sui numeri e nessuno è disponibile 
+// 		allora TORNA INDIETRO di UNA POSIZIONE cancellando l'ultimo numero impostato sulla matrice
+		if (fl_num_ok == 0)
+		{
+			p--;
+			matrix[x_from_pos(p, 4)][y_from_pos(p, 4)] = 0;
+		}
+// 		se il numero è disponibile e la matrice è stata aggiornata 
+// 		allora procede con la prossima POSIZIONE
+		else 
+		{
+			p++;
+		}
+	}
+// 		quando finisce le posizioni arrivando a 15 la matrice è terminata e la stampa
+	ft_print_matrix(matrix);
 
 	return (0);
 }
